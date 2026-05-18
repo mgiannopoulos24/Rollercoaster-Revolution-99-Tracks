@@ -1,7 +1,8 @@
 #include "FileSystem.h"
+
+#include <filesystem>
 #include <fstream>
 #include <sstream>
-#include <filesystem>
 
 namespace rr99 {
 
@@ -28,7 +29,8 @@ bool FileSystem::createDirectory(const std::string& path) {
 
 std::string FileSystem::readFile(const std::string& path) {
     std::ifstream file(path);
-    if (!file.is_open()) return "";
+    if (!file.is_open())
+        return "";
     std::stringstream buffer;
     buffer << file.rdbuf();
     return buffer.str();
@@ -36,7 +38,8 @@ std::string FileSystem::readFile(const std::string& path) {
 
 bool FileSystem::writeFile(const std::string& path, const std::string& content) {
     std::ofstream file(path);
-    if (!file.is_open()) return false;
+    if (!file.is_open())
+        return false;
     file << content;
     return true;
 }

@@ -1,9 +1,10 @@
 #include "Random.h"
+
 #include <algorithm>
 
 namespace rr99 {
 
-uint64_t Random::s[4] = {0, 0, 0, 0};
+uint64_t Random::s[4] = { 0, 0, 0, 0 };
 
 uint64_t Random::rotl(const uint64_t x, int k) {
     return (x << k) | (x >> (64 - k));
@@ -50,7 +51,8 @@ float Random::nextFloat() {
 }
 
 int32_t Random::nextInt(int32_t min, int32_t max) {
-    if (min >= max) return min;
+    if (min >= max)
+        return min;
     return min + static_cast<int32_t>(next() % static_cast<uint64_t>(max - min + 1));
 }
 

@@ -1,9 +1,11 @@
 #include "Game.h"
-#include "Renderer.h"
-#include "InputManager.h"
-#include "InputState.h"
+
 #include "EventBus.h"
 #include "GameState.h"
+#include "InputManager.h"
+#include "InputState.h"
+#include "Renderer.h"
+
 #include <SDL2/SDL.h>
 #include <iostream>
 
@@ -12,8 +14,7 @@ namespace rr99 {
 Game::Game()
     : m_renderer(std::make_unique<Renderer>())
     , m_inputManager(std::make_unique<InputManager>())
-    , m_eventBus(std::make_unique<EventBus>())
-{
+    , m_eventBus(std::make_unique<EventBus>()) {
 }
 
 Game::~Game() {
@@ -22,8 +23,9 @@ Game::~Game() {
 }
 
 bool Game::initialize(const std::string& title, int width, int height, bool fullscreen) {
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS |
-                 SDL_INIT_GAMECONTROLLER | SDL_INIT_HAPTIC | SDL_INIT_TIMER) < 0) {
+    if (SDL_Init(
+            SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS | SDL_INIT_GAMECONTROLLER | SDL_INIT_HAPTIC | SDL_INIT_TIMER) <
+        0) {
         std::cerr << "SDL initialization failed: " << SDL_GetError() << std::endl;
         return false;
     }
@@ -38,7 +40,8 @@ bool Game::initialize(const std::string& title, int width, int height, bool full
 }
 
 void Game::run() {
-    if (!m_running) return;
+    if (!m_running)
+        return;
 
     Uint64 lastTick = SDL_GetPerformanceCounter();
     const Uint64 freq = SDL_GetPerformanceFrequency();
@@ -49,7 +52,8 @@ void Game::run() {
         float frameTime = static_cast<float>(now - lastTick) / static_cast<float>(freq);
         lastTick = now;
 
-        if (frameTime > 0.25f) frameTime = 0.25f;
+        if (frameTime > 0.25f)
+            frameTime = 0.25f;
 
         accumulator += frameTime;
 
@@ -129,7 +133,8 @@ void Game::replaceState(std::unique_ptr<GameState> state) {
 }
 
 GameState* Game::getCurrentState() const {
-    if (m_stateStack.empty()) return nullptr;
+    if (m_stateStack.empty())
+        return nullptr;
     return m_stateStack.back().get();
 }
 

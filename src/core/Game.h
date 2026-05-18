@@ -2,8 +2,8 @@
 #define RR99_CORE_GAME_H
 
 #include <memory>
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace rr99 {
 
@@ -30,13 +30,23 @@ public:
 
     // Slow motion
     void setSlowMotion(bool enabled);
-    bool isSlowMotion() const { return m_slowMotion; }
+    bool isSlowMotion() const {
+        return m_slowMotion;
+    }
 
     // Accessors
-    Renderer& getRenderer() { return *m_renderer; }
-    InputManager& getInputManager() { return *m_inputManager; }
-    EventBus& getEventBus() { return *m_eventBus; }
-    int getTargetFPS() const { return m_slowMotion ? 30 : 60; }
+    Renderer& getRenderer() {
+        return *m_renderer;
+    }
+    InputManager& getInputManager() {
+        return *m_inputManager;
+    }
+    EventBus& getEventBus() {
+        return *m_eventBus;
+    }
+    int getTargetFPS() const {
+        return m_slowMotion ? 30 : 60;
+    }
 
 private:
     void handleWindowEvent(const InputState& input);

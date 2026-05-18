@@ -1,4 +1,5 @@
 #include "Sprite.h"
+
 #include "Renderer.h"
 
 namespace rr99 {
@@ -26,15 +27,11 @@ void Sprite::unload() {
     }
 }
 
-void Sprite::draw(Renderer& renderer, int x, int y, float scale,
-                  double angle, SDL_Color tint, uint8_t alpha) const {
-    if (!m_texture) return;
+void Sprite::draw(Renderer& renderer, int x, int y, float scale, double angle, SDL_Color tint, uint8_t alpha) const {
+    if (!m_texture)
+        return;
 
-    SDL_Rect dst = {
-        x, y,
-        static_cast<int>(m_width * scale),
-        static_cast<int>(m_height * scale)
-    };
+    SDL_Rect dst = { x, y, static_cast<int>(m_width * scale), static_cast<int>(m_height * scale) };
 
     SDL_SetTextureColorMod(m_texture, tint.r, tint.g, tint.b);
     SDL_SetTextureAlphaMod(m_texture, alpha);
@@ -42,15 +39,11 @@ void Sprite::draw(Renderer& renderer, int x, int y, float scale,
     renderer.drawSprite(m_texture, nullptr, &dst, angle, nullptr, SDL_FLIP_NONE);
 }
 
-void Sprite::drawSection(Renderer& renderer, const SDL_Rect& srcRect,
-                         int x, int y, float scale, double angle) const {
-    if (!m_texture) return;
+void Sprite::drawSection(Renderer& renderer, const SDL_Rect& srcRect, int x, int y, float scale, double angle) const {
+    if (!m_texture)
+        return;
 
-    SDL_Rect dst = {
-        x, y,
-        static_cast<int>(srcRect.w * scale),
-        static_cast<int>(srcRect.h * scale)
-    };
+    SDL_Rect dst = { x, y, static_cast<int>(srcRect.w * scale), static_cast<int>(srcRect.h * scale) };
 
     renderer.drawSprite(m_texture, &srcRect, &dst, angle, nullptr, SDL_FLIP_NONE);
 }

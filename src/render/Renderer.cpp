@@ -1,4 +1,5 @@
 #include "Renderer.h"
+
 #include <iostream>
 
 namespace rr99 {
@@ -6,12 +7,17 @@ namespace rr99 {
 Renderer::Renderer() = default;
 
 Renderer::~Renderer() {
-    if (m_renderer) {
+    if (m_font)
+        TTF_CloseFont(m_font);
+    if (m_fontSmall)
+        TTF_CloseFont(m_fontSmall);
+    if (m_fontLarge)
+        TTF_CloseFont(m_fontLarge);
+    if (m_renderer)
         SDL_DestroyRenderer(m_renderer);
-    }
-    if (m_window) {
+    if (m_window)
         SDL_DestroyWindow(m_window);
-    }
+    TTF_Quit();
     IMG_Quit();
 }
 
@@ -24,10 +30,7 @@ bool Renderer::initialize(const std::string& title, int width, int height, bool 
         flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
     }
 
-    m_window = SDL_CreateWindow(title.c_str(),
-                                SDL_WINDOWPOS_CENTERED,
-                                SDL_WINDOWPOS_CENTERED,
-                                width, height, flags);
+    m_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
 
     if (!m_window) {
         std::cerr << "Failed to create window: " << SDL_GetError() << std::endl;
@@ -44,6 +47,11 @@ bool Renderer::initialize(const std::string& title, int width, int height, bool 
     int imgFlags = IMG_INIT_PNG;
     if (!(IMG_Init(imgFlags) & imgFlags)) {
         std::cerr << "SDL_image initialization failed: " << IMG_GetError() << std::endl;
+        return false;
+    }
+
+    if (TTF_Init() < 0) {
+        std::cerr << "SDL_ttf initialization failed: " << TTF_GetError() << std::endl;
         return false;
     }
 
@@ -78,8 +86,9 @@ void Renderer::unloadTexture(SDL_Texture* texture) {
     }
 }
 
-void Renderer::drawSprite(SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dst,
-                          double angle, const SDL_Point* center, SDL_RendererFlip flip) {
+void Renderer::drawSprite(
+    SDL_Texture* texture, const SDL_Rect* src, const SDL_Rect* dst, double angle, const SDL_Point* center,
+    SDL_RendererFlip flip) {
     SDL_RenderCopyEx(m_renderer, texture, src, dst, angle, center, flip);
 }
 
@@ -90,6 +99,51 @@ void Renderer::drawRect(const SDL_Rect* rect, SDL_Color color, bool filled) {
     } else {
         SDL_RenderDrawRect(m_renderer, rect);
     }
+}
+
+bool Renderer::loadFont(const std::string& path, int size) {
+    if (m_font)
+        TTF_CloseFont(m_font);
+    m_font = TTF_OpenFont(path.c_str(), size);
+    if (!m_font) {
+        std::cerr << "Failed to load font: " << path << " - " << TTF_GetError() << std::endl;
+        return false;
+    }
+
+    if (!m_fontSmall) {
+        m_fontSmall = TTF_OpenFont(path.c_str(), 12);
+    }
+    if (!m_fontLarge) {
+        m_fontLarge = TTF_OpenFont(path.c_str(), 24);
+    }
+    return true;
+}
+
+void Renderer::drawText(int x, int y, const std::string& text, SDL_Color color, int size) {
+    TTF_Font* font = m_font;
+    if (size <= 12 && m_fontSmall)
+        font = m_fontSmall;
+    else if (size >= 24 && m_fontLarge)
+        font = m_fontLarge;
+
+    if (!font)
+        return;
+
+    SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), color);
+    if (!surface)
+        return;
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer, surface);
+    if (!texture) {
+        SDL_FreeSurface(surface);
+        return;
+    }
+
+    SDL_Rect dst = { x, y, surface->w, surface->h };
+    SDL_RenderCopy(m_renderer, texture, nullptr, &dst);
+
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
 }
 
 } // namespace rr99

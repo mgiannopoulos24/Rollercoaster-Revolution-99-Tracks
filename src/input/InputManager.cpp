@@ -1,4 +1,5 @@
 #include "InputManager.h"
+
 #include <iostream>
 
 namespace rr99 {
@@ -61,28 +62,43 @@ void InputManager::processKeyEvent(const SDL_Event& event, InputState& state) {
     bool pressed = (event.type == SDL_KEYDOWN);
     SDL_Keycode key = event.key.keysym.sym;
 
-    if (key == m_keybindings["accelerate"]) state.accelerating = pressed;
-    if (key == m_keybindings["brake"]) state.braking = pressed;
-    if (key == m_keybindings["pause"] && pressed) state.pause_pressed = true;
-    if (key == m_keybindings["menu_up"] && pressed) state.menu_up = true;
-    if (key == m_keybindings["menu_down"] && pressed) state.menu_down = true;
-    if (key == m_keybindings["menu_confirm"] && pressed) state.menu_confirm = true;
-    if (key == m_keybindings["menu_cancel"] && pressed) state.menu_cancel = true;
+    if (key == m_keybindings["accelerate"])
+        state.accelerating = pressed;
+    if (key == m_keybindings["brake"])
+        state.braking = pressed;
+    if (key == m_keybindings["pause"] && pressed)
+        state.pause_pressed = true;
+    if (key == m_keybindings["menu_up"] && pressed)
+        state.menu_up = true;
+    if (key == m_keybindings["menu_down"] && pressed)
+        state.menu_down = true;
+    if (key == m_keybindings["menu_confirm"] && pressed)
+        state.menu_confirm = true;
+    if (key == m_keybindings["menu_cancel"] && pressed)
+        state.menu_cancel = true;
 }
 
 void InputManager::processGamepadEvent(const SDL_Event& event, InputState& state) {
-    if (!m_controller) return;
+    if (!m_controller)
+        return;
 
     bool pressed = (event.type == SDL_CONTROLLERBUTTONDOWN);
     int button = event.cbutton.button;
 
-    if (button == m_gamepadBindings["accelerate"]) state.accelerating = pressed;
-    if (button == m_gamepadBindings["brake"]) state.braking = pressed;
-    if (button == m_gamepadBindings["pause"] && pressed) state.pause_pressed = true;
-    if (button == m_gamepadBindings["menu_up"] && pressed) state.menu_up = true;
-    if (button == m_gamepadBindings["menu_down"] && pressed) state.menu_down = true;
-    if (button == m_gamepadBindings["menu_confirm"] && pressed) state.menu_confirm = true;
-    if (button == m_gamepadBindings["menu_cancel"] && pressed) state.menu_cancel = true;
+    if (button == m_gamepadBindings["accelerate"])
+        state.accelerating = pressed;
+    if (button == m_gamepadBindings["brake"])
+        state.braking = pressed;
+    if (button == m_gamepadBindings["pause"] && pressed)
+        state.pause_pressed = true;
+    if (button == m_gamepadBindings["menu_up"] && pressed)
+        state.menu_up = true;
+    if (button == m_gamepadBindings["menu_down"] && pressed)
+        state.menu_down = true;
+    if (button == m_gamepadBindings["menu_confirm"] && pressed)
+        state.menu_confirm = true;
+    if (button == m_gamepadBindings["menu_cancel"] && pressed)
+        state.menu_cancel = true;
 }
 
 void InputManager::processTouchEvent(const SDL_Event& event, InputState& state) {
@@ -90,15 +106,17 @@ void InputManager::processTouchEvent(const SDL_Event& event, InputState& state) 
     float y = event.tfinger.y;
 
     int screenW = 0, screenH = 0;
-    if (m_window) SDL_GetWindowSize(m_window, &screenW, &screenH);
+    if (m_window)
+        SDL_GetWindowSize(m_window, &screenW, &screenH);
     int tx = static_cast<int>(x * screenW);
     int ty = static_cast<int>(y * screenH);
 
     for (const auto& zone : m_touchZones) {
-        if (tx >= zone.rect.x && tx <= zone.rect.x + zone.rect.w &&
-            ty >= zone.rect.y && ty <= zone.rect.y + zone.rect.h) {
-            if (zone.action == "accelerate") state.accelerating = (event.type == SDL_FINGERDOWN);
-            if (zone.action == "brake") state.braking = (event.type == SDL_FINGERDOWN);
+        if (tx >= zone.rect.x && tx <= zone.rect.x + zone.rect.w && ty >= zone.rect.y && ty <= zone.rect.y + zone.rect.h) {
+            if (zone.action == "accelerate")
+                state.accelerating = (event.type == SDL_FINGERDOWN);
+            if (zone.action == "brake")
+                state.braking = (event.type == SDL_FINGERDOWN);
         }
     }
 }

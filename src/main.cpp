@@ -1,8 +1,9 @@
-#include "core/Game.h"
 #include "core/Config.h"
+#include "core/Game.h"
 #include "core/Random.h"
 #include "db/DatabaseManager.h"
 #include "version.h"
+
 #include <iostream>
 
 int main(int argc, char* argv[]) {

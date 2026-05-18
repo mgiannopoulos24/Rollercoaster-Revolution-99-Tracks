@@ -307,14 +307,14 @@ Rollercoaster-Revolution-99/
 - [x] `resources/version.h.in` — auto-generated version header
 
 ### Phase 2 — Physics & Track
-- [ ] `physics/TrackSegment` — all 6 segment types with physical properties
-- [ ] `physics/Train` — light/medium/heavy train models, multi-car linked-list with distance constraints ("worm" physics), partial derailment support
-- [ ] `physics/CoasterPhysics` — velocity, gravity, nitro boost impulse, crash detection (derailment, loop overshoot, falling track), G-force per car
-- [ ] `track/TrackLayout` — track data structure with iteration and metadata
-- [ ] `track/TrackBuilder` — JSON loading for hand-crafted tracks + procedural generation for Survival
-- [ ] `track/TrackElements` — smile tokens (speed-window collection), 5 power-ups (nitro, sticky wheels, wings, magnet, slow motion), hazards (falling track triggers)
-- [ ] `track/TrackValidator` — load-time validation (connectivity, reachability, completable)
-- [ ] `tools/LevelEditor` — 2D grid canvas, block-based drag-and-drop segment palette, connection-point validation, element placement, properties panel, live play-test, train preview dropdown, JSON export
+- [x] `physics/TrackSegment` — all 6 segment types with physical properties (src/physics/TrackSegment.h/.cpp)
+- [x] `physics/Train` — light/medium/heavy train models, multi-car linked-list with distance constraints ("worm" physics), partial derailment support (src/physics/Train.h/.cpp)
+- [x] `physics/CoasterPhysics` — velocity, gravity, nitro boost impulse, crash detection (derailment, loop overshoot, falling track), G-force per car (src/physics/CoasterPhysics.h/.cpp)
+- [x] `track/TrackLayout` — track data structure with iteration and metadata (src/track/TrackLayout.h/.cpp)
+- [x] `track/TrackBuilder` — JSON loading for hand-crafted tracks + procedural generation for Survival (src/track/TrackBuilder.h/.cpp)
+- [x] `track/TrackElements` — smile tokens (speed-window collection), 5 power-ups (nitro, sticky wheels, wings, magnet, slow motion), hazards (falling track triggers) (src/track/TrackElements.h/.cpp)
+- [x] `track/TrackValidator` — load-time validation (connectivity, reachability, completable) (src/track/TrackValidator.h/.cpp)
+- [x] `tools/LevelEditor` — 2D grid canvas, block-based drag-and-drop segment palette, connection-point validation, element placement, properties panel, live play-test, train preview dropdown, JSON export (src/tools/LevelEditor.h/.cpp)
 
 ### Phase 3 — Core Gameplay Loop
 - [ ] `game/GameState` — state machine with Enter/Exit/Tick/Draw/HandleInput

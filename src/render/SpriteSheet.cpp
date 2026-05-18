@@ -1,4 +1,5 @@
 #include "SpriteSheet.h"
+
 #include "Renderer.h"
 
 namespace rr99 {
@@ -7,11 +8,11 @@ SpriteSheet::~SpriteSheet() {
     unload();
 }
 
-bool SpriteSheet::load(Renderer& renderer, const std::string& path,
-                       int frameWidth, int frameHeight) {
+bool SpriteSheet::load(Renderer& renderer, const std::string& path, int frameWidth, int frameHeight) {
     unload();
     m_texture = renderer.loadTexture(path);
-    if (!m_texture) return false;
+    if (!m_texture)
+        return false;
 
     int texWidth, texHeight;
     SDL_QueryTexture(m_texture, nullptr, nullptr, &texWidth, &texHeight);
@@ -33,32 +34,24 @@ void SpriteSheet::unload() {
     m_currentFrame = 0;
 }
 
-void SpriteSheet::drawFrame(Renderer& renderer, int frameIndex, int x, int y,
-                            float scale, double angle) const {
-    if (!m_texture || frameIndex < 0 || frameIndex >= m_frameCount) return;
+void SpriteSheet::drawFrame(Renderer& renderer, int frameIndex, int x, int y, float scale, double angle) const {
+    if (!m_texture || frameIndex < 0 || frameIndex >= m_frameCount)
+        return;
 
     int cols = 0;
     SDL_QueryTexture(m_texture, nullptr, nullptr, &cols, nullptr);
     cols /= m_frameWidth;
 
-    SDL_Rect src = {
-        (frameIndex % cols) * m_frameWidth,
-        (frameIndex / cols) * m_frameHeight,
-        m_frameWidth,
-        m_frameHeight
-    };
+    SDL_Rect src = { (frameIndex % cols) * m_frameWidth, (frameIndex / cols) * m_frameHeight, m_frameWidth, m_frameHeight };
 
-    SDL_Rect dst = {
-        x, y,
-        static_cast<int>(m_frameWidth * scale),
-        static_cast<int>(m_frameHeight * scale)
-    };
+    SDL_Rect dst = { x, y, static_cast<int>(m_frameWidth * scale), static_cast<int>(m_frameHeight * scale) };
 
     renderer.drawSprite(m_texture, &src, &dst, angle, nullptr, SDL_FLIP_NONE);
 }
 
 void SpriteSheet::update(float dt) {
-    if (!m_playing) return;
+    if (!m_playing)
+        return;
 
     m_elapsed += dt * m_speed;
 

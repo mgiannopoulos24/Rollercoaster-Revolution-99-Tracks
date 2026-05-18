@@ -2,7 +2,9 @@
 #define RR99_INPUT_INPUTMANAGER_H
 
 #include "InputState.h"
+
 #include <SDL2/SDL.h>
+#include <string>
 #include <unordered_map>
 #include <vector>
 

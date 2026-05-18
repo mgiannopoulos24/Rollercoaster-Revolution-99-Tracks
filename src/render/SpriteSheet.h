@@ -17,8 +17,7 @@ public:
     bool load(Renderer& renderer, const std::string& path, int frameWidth, int frameHeight);
     void unload();
 
-    void drawFrame(Renderer& renderer, int frameIndex, int x, int y,
-                   float scale = 1.0f, double angle = 0.0) const;
+    void drawFrame(Renderer& renderer, int frameIndex, int x, int y, float scale = 1.0f, double angle = 0.0) const;
 
     // Animation
     void update(float dt);
@@ -26,13 +25,25 @@ public:
     void stop();
     void reset();
 
-    int getCurrentFrame() const { return m_currentFrame; }
-    int getFrameCount() const { return m_frameCount; }
-    int getFrameWidth() const { return m_frameWidth; }
-    int getFrameHeight() const { return m_frameHeight; }
-    bool isPlaying() const { return m_playing; }
+    int getCurrentFrame() const {
+        return m_currentFrame;
+    }
+    int getFrameCount() const {
+        return m_frameCount;
+    }
+    int getFrameWidth() const {
+        return m_frameWidth;
+    }
+    int getFrameHeight() const {
+        return m_frameHeight;
+    }
+    bool isPlaying() const {
+        return m_playing;
+    }
 
-    SDL_Texture* getTexture() const { return m_texture; }
+    SDL_Texture* getTexture() const {
+        return m_texture;
+    }
 
 private:
     SDL_Texture* m_texture = nullptr;

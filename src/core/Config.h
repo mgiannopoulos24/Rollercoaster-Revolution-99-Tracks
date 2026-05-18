@@ -1,8 +1,8 @@
 #ifndef RR99_CORE_CONFIG_H
 #define RR99_CORE_CONFIG_H
 
-#include <string>
 #include <map>
+#include <string>
 
 namespace rr99 {
 
