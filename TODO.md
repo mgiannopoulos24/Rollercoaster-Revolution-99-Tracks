@@ -285,26 +285,26 @@ Rollercoaster-Revolution-99/
 ## Implementation Phases
 
 ### Phase 1 — Foundation
-- [ ] CMake build system with SDL2, SDL_mixer, SDL_image, SDL_ttf, SQLite3
-- [ ] Emscripten toolchain configuration with IDBFS support
-- [ ] Android NDK toolchain configuration with APK asset packaging
-- [ ] iOS Xcode toolchain configuration with app bundle asset inclusion
-- [ ] Compiler flags, ASan, UBSan enabled
-- [ ] `core/Game` — fixed-timestep game loop with state stack, slow-motion tick adjustment
-- [ ] `core/Config` — settings load/save with keybinding support
-- [ ] `core/Random` — deterministic PRNG
-- [ ] `core/EventBus` — decoupled event system
-- [ ] `db/DatabaseManager` — SQLite wrapper with migrations, prepared statement caching
-- [ ] `db/Schema.sql` — initial schema (levels, scores, ghost_runs, settings, achievements)
-- [ ] `platform/EmscriptenFS` — FS.syncfs for IndexedDB persistence, audio context resume hook
-- [ ] `platform/AndroidFS` — APK asset extraction, internal storage save paths, activity lifecycle handling
-- [ ] `platform/iOSFS` — bundle asset reading, Documents directory saves, lifecycle event handling
-- [ ] `render/Renderer` — SDL2 window, `SDL_RenderSetLogicalSize`, texture management, sprite batching
-- [ ] `render/Sprite` / `render/SpriteSheet` — sprite loading and animation
-- [ ] `input/InputManager` — keyboard + gamepad input with rebinding, haptic feedback (rumble), touch input mapping for mobile
-- [ ] `input/InputState` — frame-level input snapshot
-- [ ] `platform/FileSystem` — cross-platform asset and save paths
-- [ ] `resources/version.h.in` — auto-generated version header
+- [x] CMake build system with SDL2, SDL_mixer, SDL_image, SDL_ttf, SQLite3
+- [x] Emscripten toolchain configuration with IDBFS support
+- [x] Android NDK toolchain configuration with APK asset packaging
+- [x] iOS Xcode toolchain configuration with app bundle asset inclusion
+- [x] Compiler flags, ASan, UBSan enabled
+- [x] `core/Game` — fixed-timestep game loop with state stack, slow-motion tick adjustment
+- [x] `core/Config` — settings load/save with keybinding support
+- [x] `core/Random` — deterministic PRNG
+- [x] `core/EventBus` — decoupled event system
+- [x] `db/DatabaseManager` — SQLite wrapper with migrations, prepared statement caching
+- [x] `db/Schema.sql` — initial schema (levels, scores, ghost_runs, settings, achievements)
+- [x] `platform/EmscriptenFS` — FS.syncfs for IndexedDB persistence, audio context resume hook
+- [x] `platform/AndroidFS` — APK asset extraction, internal storage save paths, activity lifecycle handling
+- [x] `platform/iOSFS` — bundle asset reading, Documents directory saves, lifecycle event handling
+- [x] `render/Renderer` — SDL2 window, `SDL_RenderSetLogicalSize`, texture management, sprite batching
+- [x] `render/Sprite` / `render/SpriteSheet` — sprite loading and animation
+- [x] `input/InputManager` — keyboard + gamepad input with rebinding, haptic feedback (rumble), touch input mapping for mobile
+- [x] `input/InputState` — frame-level input snapshot
+- [x] `platform/FileSystem` — cross-platform asset and save paths
+- [x] `resources/version.h.in` — auto-generated version header
 
 ### Phase 2 — Physics & Track
 - [ ] `physics/TrackSegment` — all 6 segment types with physical properties
