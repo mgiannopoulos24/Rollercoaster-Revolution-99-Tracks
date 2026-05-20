@@ -36,6 +36,7 @@ public:
     }
 
     void setLogicalSize(int w, int h);
+    void resize(int w, int h);
 
     // Texture management
     SDL_Texture* loadTexture(const std::string& path);
@@ -47,6 +48,7 @@ public:
         SDL_RendererFlip flip = SDL_FLIP_NONE);
 
     void drawRect(const SDL_Rect* rect, SDL_Color color, bool filled = false);
+    void drawRect(const SDL_Rect& rect, SDL_Color color, bool filled = false);
 
     // Text rendering (SDL_ttf)
     bool loadFont(const std::string& path, int size = 16);

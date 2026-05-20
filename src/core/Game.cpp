@@ -34,6 +34,8 @@ bool Game::initialize(const std::string& title, int width, int height, bool full
         return false;
     }
 
+    m_renderer->loadFont("../resources/OpenSans.ttf");
+
     m_inputManager->initialize(m_renderer->getWindow());
     m_running = true;
     return true;
@@ -143,8 +145,7 @@ void Game::setSlowMotion(bool enabled) {
 }
 
 void Game::handleResize(int newW, int newH) {
-    (void)newW;
-    (void)newH;
+    m_renderer->resize(newW, newH);
 }
 
 void Game::handleFocusChange(bool focused) {

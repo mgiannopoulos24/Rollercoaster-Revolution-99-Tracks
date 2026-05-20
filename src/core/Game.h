@@ -34,6 +34,28 @@ public:
         return m_slowMotion;
     }
 
+    struct LevelResult {
+        bool active = false;
+        bool completed = false;
+        int levelNumber = 0;
+        int score = 0;
+        int stars = 0;
+    };
+
+    void setLevelResult(bool completed, int levelNumber, int score, int stars) {
+        m_levelResult.active = true;
+        m_levelResult.completed = completed;
+        m_levelResult.levelNumber = levelNumber;
+        m_levelResult.score = score;
+        m_levelResult.stars = stars;
+    }
+    const LevelResult& getLevelResult() const {
+        return m_levelResult;
+    }
+    void clearLevelResult() {
+        m_levelResult.active = false;
+    }
+
     // Accessors
     Renderer& getRenderer() {
         return *m_renderer;
@@ -58,6 +80,8 @@ private:
     std::unique_ptr<EventBus> m_eventBus;
 
     std::vector<std::unique_ptr<GameState>> m_stateStack;
+
+    LevelResult m_levelResult;
 
     bool m_running = false;
     bool m_paused = false;

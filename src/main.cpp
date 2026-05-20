@@ -2,8 +2,10 @@
 #include "core/Game.h"
 #include "core/Random.h"
 #include "db/DatabaseManager.h"
+#include "game/MenuState.h"
 #include "version.h"
 
+#include <SDL2/SDL.h>
 #include <iostream>
 
 int main(int argc, char* argv[]) {
@@ -23,11 +25,17 @@ int main(int argc, char* argv[]) {
     rr99::DatabaseManager::instance().createTables();
 
     // Create and run game
+    SDL_Init(SDL_INIT_VIDEO);
+    SDL_DisplayMode dm;
+    SDL_GetCurrentDisplayMode(0, &dm);
+
     auto game = std::make_unique<rr99::Game>();
-    if (!game->initialize("Rollercoaster Revolution 99", 240, 320, false)) {
+    if (!game->initialize("Rollercoaster Revolution 99", 450, dm.h, false)) {
         std::cerr << "Failed to initialize game." << std::endl;
         return 1;
     }
+
+    game->pushState(std::make_unique<rr99::MenuState>(*game));
 
     game->run();
 

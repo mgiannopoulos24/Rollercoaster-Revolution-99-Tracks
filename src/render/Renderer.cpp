@@ -25,7 +25,7 @@ bool Renderer::initialize(const std::string& title, int width, int height, bool 
     m_width = width;
     m_height = height;
 
-    Uint32 flags = SDL_WINDOW_SHOWN;
+    Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
     if (fullscreen) {
         flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
     }
@@ -72,6 +72,11 @@ void Renderer::setLogicalSize(int w, int h) {
     SDL_RenderSetLogicalSize(m_renderer, w, h);
 }
 
+void Renderer::resize(int w, int h) {
+    m_width = w;
+    m_height = h;
+}
+
 SDL_Texture* Renderer::loadTexture(const std::string& path) {
     SDL_Texture* texture = IMG_LoadTexture(m_renderer, path.c_str());
     if (!texture) {
@@ -93,12 +98,18 @@ void Renderer::drawSprite(
 }
 
 void Renderer::drawRect(const SDL_Rect* rect, SDL_Color color, bool filled) {
+    if (!rect)
+        return;
     SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
     if (filled) {
         SDL_RenderFillRect(m_renderer, rect);
     } else {
         SDL_RenderDrawRect(m_renderer, rect);
     }
+}
+
+void Renderer::drawRect(const SDL_Rect& rect, SDL_Color color, bool filled) {
+    drawRect(&rect, color, filled);
 }
 
 bool Renderer::loadFont(const std::string& path, int size) {

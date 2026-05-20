@@ -2,7 +2,7 @@
 build/
 
 # Object files
-.o
+*.o
 
 # Database files
-.db
+*.db
