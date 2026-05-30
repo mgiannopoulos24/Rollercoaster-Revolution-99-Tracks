@@ -53,6 +53,8 @@ public:
     // Text rendering (SDL_ttf)
     bool loadFont(const std::string& path, int size = 16);
     void drawText(int x, int y, const std::string& text, SDL_Color color, int size = 16);
+    void drawTextCentered(int y, const std::string& text, SDL_Color color, int size = 16);
+    int textWidth(const std::string& text, int size = 16);
 
 private:
     SDL_Window* m_window = nullptr;

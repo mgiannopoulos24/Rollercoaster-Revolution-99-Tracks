@@ -34,7 +34,7 @@ bool Game::initialize(const std::string& title, int width, int height, bool full
         return false;
     }
 
-    m_renderer->loadFont("../resources/OpenSans.ttf");
+    m_renderer->loadFont("resources/OpenSans.ttf");
 
     m_inputManager->initialize(m_renderer->getWindow());
     m_running = true;

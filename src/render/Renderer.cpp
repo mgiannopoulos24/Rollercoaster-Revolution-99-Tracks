@@ -157,4 +157,36 @@ void Renderer::drawText(int x, int y, const std::string& text, SDL_Color color, 
     SDL_FreeSurface(surface);
 }
 
+void Renderer::drawTextCentered(int y, const std::string& text, SDL_Color color, int size) {
+    TTF_Font* font = m_font;
+    if (size <= 12 && m_fontSmall)
+        font = m_fontSmall;
+    else if (size >= 24 && m_fontLarge)
+        font = m_fontLarge;
+
+    if (!font)
+        return;
+
+    int textWidth;
+    TTF_SizeText(font, text.c_str(), &textWidth, nullptr);
+    int x = (m_width - textWidth) / 2;
+
+    drawText(x, y, text, color, size);
+}
+
+int Renderer::textWidth(const std::string& text, int size) {
+    TTF_Font* font = m_font;
+    if (size <= 12 && m_fontSmall)
+        font = m_fontSmall;
+    else if (size >= 24 && m_fontLarge)
+        font = m_fontLarge;
+
+    if (!font)
+        return 0;
+
+    int w;
+    TTF_SizeText(font, text.c_str(), &w, nullptr);
+    return w;
+}
+
 } // namespace rr99

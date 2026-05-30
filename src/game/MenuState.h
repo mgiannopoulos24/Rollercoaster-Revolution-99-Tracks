@@ -3,6 +3,8 @@
 
 #include "core/GameState.h"
 
+struct SDL_Texture;
+
 namespace rr99 {
 
 class Game;
@@ -24,6 +26,7 @@ private:
     Game* m_game;
     int m_selectedOption = 0;
     float m_animTimer = 0.0f;
+    SDL_Texture* m_bgTexture = nullptr;
 };
 
 } // namespace rr99

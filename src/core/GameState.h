@@ -16,7 +16,7 @@ public:
     }
     virtual void tick(float dt) = 0;
     virtual void draw(Renderer& renderer) = 0;
-    virtual void handleInput(const InputState& input) {
+    virtual void handleInput(const InputState&) {
     }
 };
 

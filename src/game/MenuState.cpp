@@ -8,6 +8,7 @@
 #include "input/InputState.h"
 #include "render/Renderer.h"
 
+#include <algorithm>
 #include <string>
 
 namespace rr99 {
@@ -19,9 +20,14 @@ MenuState::MenuState(Game& game)
 void MenuState::enter() {
     m_selectedOption = 0;
     m_animTimer = 0.0f;
+    m_bgTexture = m_game->getRenderer().loadTexture("resources/menu.jpg");
 }
 
 void MenuState::exit() {
+    if (m_bgTexture) {
+        m_game->getRenderer().unloadTexture(m_bgTexture);
+        m_bgTexture = nullptr;
+    }
 }
 
 void MenuState::tick(float dt) {
@@ -32,10 +38,17 @@ void MenuState::draw(Renderer& renderer) {
     int w = renderer.getWidth();
     int h = renderer.getHeight();
 
-    renderer.drawRect({ 0, 0, w, h }, { 255, 255, 255, 1 }, true);
+    if (m_bgTexture) {
+        SDL_Rect dst = { 0, 0, w, h };
+        renderer.drawSprite(m_bgTexture, nullptr, &dst);
+    } else {
+        renderer.drawRect({ 0, 0, w, h }, { 255, 255, 255, 1 }, true);
+    }
 
-    renderer.drawText(w / 2 - 90, 30, "ROLLERCOASTER", { 20, 20, 50, 255 }, 20);
-    renderer.drawText(w / 2 - 90, 55, "REVOLUTION 99", { 255, 200, 50, 255 }, 20);
+    int titleW = std::max(renderer.textWidth("ROLLERCOASTER", 30), renderer.textWidth("REVOLUTION 99", 30));
+    int titleX = (w - titleW) / 2;
+    renderer.drawText(titleX, 30, "ROLLERCOASTER", { 20, 20, 50, 255 }, 30);
+    renderer.drawText(titleX, 60, "REVOLUTION 99", { 255, 200, 50, 255 }, 30);
 
     const char* labels[] = { "Career Mode", "Survival Mode", "Hot Seat", "Ghost Race", "Options", "Credits" };
 

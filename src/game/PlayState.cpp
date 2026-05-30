@@ -357,8 +357,6 @@ void PlayState::drawTrain(Renderer& renderer) {
         int segIdx = getSegmentAtPosition(car.trackPosition);
         segIdx = std::min(segIdx, m_track->getSegmentCount() - 1);
 
-        float segStart = m_segmentStartPositions[segIdx];
-        float localPos = car.trackPosition - segStart;
         auto* seg = m_track->getSegment(segIdx);
 
         float worldX = car.trackPosition * SCALE + 30.0f;
