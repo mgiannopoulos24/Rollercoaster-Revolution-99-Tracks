@@ -39,6 +39,33 @@ This project rebuilds the full game in C++20 with SDL2, targeting all major plat
 - SDL2, SDL2_image, SDL2_mixer, SDL2_ttf
 - SQLite3
 
+### Installing Dependencies
+
+**Ubuntu / Debian:**
+```bash
+sudo apt install build-essential cmake libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libsqlite3-dev
+```
+
+**Fedora:**
+```bash
+sudo dnf install gcc-c++ cmake SDL2-devel SDL2_image-devel SDL2_mixer-devel SDL2_ttf-devel sqlite-devel
+```
+
+**Arch Linux:**
+```bash
+sudo pacman -S base-devel cmake sdl2 sdl2_image sdl2_mixer sdl2_ttf sqlite
+```
+
+**macOS (Homebrew):**
+```bash
+brew install cmake sdl2 sdl2_image sdl2_mixer sdl2_ttf sqlite3
+```
+
+**Windows (vcpkg):**
+```bash
+vcpkg install sdl2 sdl2-image sdl2-mixer sdl2-ttf sqlite3
+```
+
 ### Linux / macOS
 
 ```bash
